@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+  background-color: #0d1117;
+  color: #fff;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Background elements */
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.circle-1 {
+  top: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background-color: rgba(61, 25, 203, 0.7);
+}
+
+.circle-2 {
+  bottom: -150px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(230, 0, 103, 0.6);
+}
+
+/* Container */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  width: 90%;
+  max-width: 500px;
+}
+
+/* Game Header */
+.game-header {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 10px;
+  background: linear-gradient(135deg, #1fcefe, #e024ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+.status {
+  font-size: 1.2rem;
+  font-weight: 600;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
+
+.status span.X, .status span.O {
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.status span.X {
+  color: #1fcefe;
+  text-shadow: 0 0 10px rgba(31, 206, 254, 0.5);
+}
+
+.status span.O {
+  color: #e024ff;
+  text-shadow: 0 0 10px rgba(224, 36, 255, 0.5);
+}
+
+.winner-text {
+  font-size: 1.5rem;
+  animation: bounce 0.5s ease;
+}
+
+.draw {
+  font-size: 1.5rem;
+  color: #fca311;
+  text-shadow: 0 0 10px rgba(252, 163, 17, 0.5);
+}
+
+/* Board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 10px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 4rem;
+  font-weight: 800;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.cell:hover:not(.filled) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cell.filled {
+  cursor: default;
+}
+
+.winning-cell {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2), inset 0 0 20px rgba(255,255,255,0.2);
+  animation: pulse 1s infinite alternate;
+}
+
+/* Mark Animation */
+.mark {
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.mark.X {
+  color: #1fcefe;
+  text-shadow: 0 0 15px rgba(31, 206, 254, 0.8);
+}
+
+.mark.O {
+  color: #e024ff;
+  text-shadow: 0 0 15px rgba(224, 36, 255, 0.8);
+}
+
+/* Reset Button */
+.reset-btn {
+  background: linear-gradient(135deg, #1fcefe, #e024ff);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(224, 36, 255, 0.3);
+}
+
+.reset-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(224, 36, 255, 0.5);
+}
+
+.reset-btn:active {
+  transform: translateY(1px);
+}
+
+/* Animations */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
